@@ -25,7 +25,7 @@ pipeline {
                         echo "**************************************"
                         echo "**************************************"
                         echo "COMMIT ID is : ${GIT_COMMIT}"
-                        echo "COMMIT ID is : ${GIT_COMMIT | truncate(7)}"
+                        echo "COMMIT ID is : ${GIT_COMMIT,length=7}"
                         echo "**************************************"
                         echo "**************************************"
                         echo "**************************************"
