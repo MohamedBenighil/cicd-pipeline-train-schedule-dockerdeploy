@@ -23,9 +23,7 @@ pipeline {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_cred') {
                         echo '******************************'
                         //echo "COMMIT ID is : ${GIT_COMMIT[0..7]}"
-                        echo "${GIT_COMMIT[0..7]}"
-                        echo "${env.GIT_COMMIT[0..7]}"
-                        app.push("${env.BUILD_NUMBER}")
+                        app.push("${env.GIT_COMMIT[0..7]}")
                         app.push("latest")
                     }
                 }
@@ -40,7 +38,7 @@ pipeline {
                 milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'production_server_creds', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     script {
-                      sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production \"docker pull mohamedbenighil/train-schedule:${env.BUILD_NUMBER}\""
+                      sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production \"docker pull mohamedbenighil/train-schedule:${env.GIT_COMMIT[0..7]}\""
                         try {
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production \"docker stop train-schedule\""
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production \"docker rm train-schedule\""
