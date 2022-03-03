@@ -23,7 +23,8 @@ pipeline {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_cred') {
                         echo '******************************'
                         //echo "COMMIT ID is : ${GIT_COMMIT[0..7]}"
-                        app.push("${env.GIT_COMMIT[0..7]}")
+                        echo "${GIT_COMMIT[0..7]}"
+                        echo "${env.GIT_COMMIT[0..7]}"
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
